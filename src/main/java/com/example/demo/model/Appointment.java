@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,7 +10,6 @@ import java.time.LocalDateTime;
 @Table(
     name = "appointments",
     uniqueConstraints = {
-        // הרעיון של גבריאל לבעיית קביעת תורים מקבילים ברמת מסד הנתונים
         @UniqueConstraint(
             name = "uk_doctor_start_time",
             columnNames = {"doctorId", "startTime"}
@@ -20,18 +20,34 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Auto-generated unique identifier", accessMode = Schema.AccessMode.READ_ONLY, example = "1")
     private Long id;
 
+    @Schema(description = "ID of the doctor", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long doctorId;
+
+    @Schema(description = "Name of the patient", example = "YOSI", requiredMode = Schema.RequiredMode.REQUIRED)
     private String patientName;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Schema(
+        type = "string", 
+        pattern = "yyyy-MM-dd'T'HH:mm", 
+        example = "2026-10-25T10:00", 
+        description = "Appointment start time (Format: yyyy-MM-dd'T'HH:mm)"
+    )
     private LocalDateTime startTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Schema(
+        type = "string", 
+        pattern = "yyyy-MM-dd'T'HH:mm", 
+        example = "2026-10-25T10:30", 
+        description = "Appointment end time (Format: yyyy-MM-dd'T'HH:mm)"
+    )
     private LocalDateTime endTime;
 
-    // שדות זיכרון פנימיים לשמירת התור המקורי וה-ETA בין קריאות שונות
+    // שדות הזיכרון הפנימיים נשארים מוסתרים לחלוטין מ-Swagger ומ-JSON
     @JsonIgnore
     private LocalDateTime originalStartTime;
 
@@ -52,7 +68,7 @@ public class Appointment {
         this.originalEndTime = endTime;
     }
 
-    // Getters and Setters
+    // Getters and Setters...
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
