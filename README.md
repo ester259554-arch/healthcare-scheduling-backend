@@ -1,5 +1,7 @@
 # 🏥 Smart Elastic Appointment Scheduling Engine
 
+> 🔍 **Interactive API Documentation:** This project features a built-in **Swagger UI** for real-time testing of all REST endpoints. *(Available locally at `/swagger-ui/index.html`)*
+
 Advanced enterprise-grade **Spring Boot** backend system for intelligent doctor schedule optimization, real-time ETA management, and minimization of physician idle time under strict concurrency constraints.
 
 ---
@@ -38,7 +40,7 @@ Within `@Transactional` boundaries, Hibernate queues SQL operations (`INSERT`, `
 
 ---
 
-## 🚀 REST API Endpoints
+## 🚀 REST API Endpoints (Swagger UI)
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -50,7 +52,7 @@ Within `@Transactional` boundaries, Hibernate queues SQL operations (`INSERT`, `
 
 ---
 
-## ▶️ Quick Start
+## ▶️ Quick Start & Testing
 
 ### Local Maven Execution:
 ```bash
